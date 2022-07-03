@@ -1,0 +1,83 @@
+protocol HomeworkService {
+    // Функция деления с остатком, должна вернуть в первой части результат деления, во второй части остаток.
+    func divideWithRemainder(_ x: Int, by y: Int) -> (Int, Int)
+
+    // Функция должна вернуть числа фибоначчи.
+    func fibonacci(n: Int) -> [Int]
+
+    // Функция должна выполнить сортировку пузырьком.
+    func sort(rawArray: [Int]) -> [Int]
+
+    // Функция должна преобразовать массив строк в массив первых символов строки.
+    func firstLetter(strings: [String]) -> String
+
+    // Функция должна отфильтровать массив по условию, которое приходит в параметре `condition`. (Нельзя юзать `filter` у `Array`)
+    func filter(array: [Int], condition: ((Int) -> Bool)) -> [Int]
+}
+
+struct HS: HomeworkService{
+    func divideWithRemainder (_ a: Int, by b: Int) -> (Int, Int){
+            let u: Int = Int(a / b)
+            let i: Int = Int(a % b)
+            return(u,i)
+        }
+    
+    func fibonacci(n: Int) -> [Int]{
+        var massive: [Int] = []
+        var n0 = 1
+        var n1 = 1
+        massive.append(n0)
+        massive.append(n1)
+        var n2: Int
+        let _:Int
+        for _ in 3...n {
+            n2 = n1+n0
+            massive.append(n2)
+            n0=n1
+            n1=n2
+        }
+        return massive
+    }
+    
+    func sort(rawArray: [Int]) -> [Int] {
+    var rawArray = [5, 10, 3, 7, 1, 9, 6]
+    for i in 0..<rawArray.count {
+        let index = (rawArray.count - 1) - i
+        for j in 0..<index {
+            let number = rawArray[j]
+            let nextNumber = rawArray[j + 1]
+            if number > nextNumber {
+                rawArray[j] = nextNumber
+                rawArray[j + 1] = number
+                }
+            }
+        }
+        return rawArray
+    }
+    
+    func firstLetter(strings: [String]) -> String {
+        let stringArray10:[String] = ["Hi", "Puf", "Smile", "Blue"]
+        let l = stringArray10.joined(separator:" ")
+        let beforeLast = l.isEmpty ? l.startIndex : l.index(before: l.endIndex)
+        var result = " "
+        var c = l.startIndex
+        OuterLoop: do {
+            while c < l.endIndex {
+                while l[c] == " " {
+                    if c < beforeLast { c = l.index(after: c) }
+                    else { break OuterLoop }
+                }
+                result.append(l[c])
+                while l[c] != " " {
+                    if c < beforeLast { c = l.index(after: c) }
+                    else { break OuterLoop }
+                }
+            }
+        }
+        return result
+    }
+    
+    func filter(array: [Int], condition: ((Int) -> Bool)) -> [Int]{
+        return [0]
+    }
+}
